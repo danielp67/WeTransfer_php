@@ -33,7 +33,7 @@
 
 <p class="news">Effectuer un nouveau transfert :</p>
 
-      <form method="post" action="index.php?action=addFile" class="news">
+      <form method="post" action="index.php?action=addFile" class="news" enctype="multipart/form-data">
     
           <label for="email">Votre email : </label>
           <input type="text" name="emailsender" id="emailsender" placeholder="exemple@test.com" size="50" maxlength="50">
@@ -42,10 +42,10 @@
           <input type="password" name="pass" id="pass" placeholder="8 caractères" size="50" maxlength="10" >
           <br>
           <label for="email">Email du destinataire : </label>
-          <input type="email" name="emailreceiver" id="emailreceiver" placeholder="exemple@test.com" size="50" maxlength="50">
+          <input type="email" name="emailreceiver" id="emailreceiver" value="exemple@test.com" size="50" maxlength="50">
           <br>
-          <label for="">Importer votre fichier : </label>
-          <input name="fileselect" type="file" id="fileselect" />
+          <label for="filesend">Importer votre fichier : </label>
+          <input name="filesend" type="file" id="filesend" />
           <br>
           <label for="contenu">Message : </label>
           <input type="text" name="content" id="content" placeholder="ton texte" size="50" maxlength="255">
@@ -71,8 +71,8 @@
 <div class="news">
    <h3>
        <?php echo htmlspecialchars($affiche_message['emailsender']); ?>
-       <em>le <?php echo $affiche_message['date_creation']; ?></em>
-       <?php echo $affiche_message['pass']; ?>
+       <em>le <?php echo $affiche_message['date_creation']; ?></em> a envoyé 
+       <?php echo $affiche_message['pass']; ?> à <?php echo $affiche_message['emailreceiver']; ?>
    </h3>
 </div>
 <?php
