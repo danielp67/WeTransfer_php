@@ -1,31 +1,5 @@
-<?php $title='Mon blog' ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thetransfer 2.0</title>
-        <link rel="stylesheet" href="assets/css/style.css" />
-    </head>
-        
-    <body>
-        <header >
-           
-            <nav>    
-                    <ul id="nav_menu">
-                        <li><a href="mesplus">NOS ++</a></li>
-                        <li><a href="mecontacter">NOUS CONTACTER</a></li>
-                    
-                    </ul>   
-            </nav>
-
-            <div id="menu_burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-        </header>
+<?php ob_start(); ?>
+  		
 
 <main>
 
@@ -45,7 +19,7 @@
           <input type="email" name="emailreceiver" id="emailreceiver" value="exemple@test.com" size="50" maxlength="50">
           <br>
           <label for="filesend">Importer votre fichier : </label>
-          <input name="filesend" type="file" id="filesend" />
+          <input name="filesend" type="file" id="filesend" multiple />
           <br>
           <label for="contenu">Message : </label>
           <input type="text" name="content" id="content" placeholder="ton texte" size="50" maxlength="255">
@@ -72,8 +46,9 @@
    <h3>
        <?php echo htmlspecialchars($affiche_message['emailsender']); ?>
        <em>le <?php echo $affiche_message['date_creation']; ?></em> a envoyé 
-       <?php echo $affiche_message['pass']; ?> à <?php echo $affiche_message['emailreceiver']; ?>
-   </h3>
+       <?php echo $affiche_message['zip_name']; ?> à <?php echo $affiche_message['emailreceiver']; ?> avec la clé 
+       <?php echo $affiche_message['pass']; ?>
+    </h3>
 </div>
 <?php
 
@@ -82,8 +57,9 @@
 
  ?>
 
-
 </main>
 
-</body>
-</html>
+
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>

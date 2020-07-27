@@ -10,14 +10,54 @@ try{
             }
         elseif ($_GET['action'] == 'addFile') {
                 
-                    if(isset($_POST['emailsender']) AND isset($_POST['pass'])){
-                        addFile($_POST['emailsender'], $_POST['pass'], $_POST['emailreceiver']);
-                    }
+                    if(isset($_POST['emailsender']) AND isset($_POST['pass']) AND isset($_POST['emailreceiver'])){
+                        $name= $_FILES['filesend']['name'];
+
+                        $tmp_name= $_FILES['filesend']['tmp_name'];
+                        
+                        $date= time();
+                        $newName =$date.'_'.$name;
+                        
+                        $path= "C:/wamp64/www/TP09_wetransfer_php/upload/";
+                       
+                            if (empty($name))
+                            {
+                            echo "Please choose a file";
+                            
+                            }
+                            else
+                            {
+                            if (move_uploaded_file($tmp_name, $path . $newName)) {
+                                $zip =new ZipArchive;
+                                $zipName = $date.'.zip';
+                                if($zip->open($zipName, ZipArchive::CREATE)=== TRUE){
+                                    
+                                    $zip->addFile($path.$newName, $newName);
+                                    $zip->close();
+                                    rename('C:/wamp64/www/TP09_wetransfer_php/'.$zipName ,'C:/wamp64/www/TP09_wetransfer_php/upload/'.$zipName);
+                                    unlink($path.$newName);
+                                    echo   $zipName;
+                                    echo 'Uploaded!';
+                                    addFile($_POST['emailsender'], $_POST['pass'], $_POST['emailreceiver'], $zipName);
+                                    } else {
+                                    echo 'échec';
+                                    }
+                                }
+                         
+                            }
+                            
+                            }
+                            
+                        
+                    
                     else{ // Autre exception
                         throw new Exception('Tous les champs ne sont pas remplis !');
                     }
                 }
+        elseif ($_GET['action'] == 'downloadFile') {
+            downloadFile();
 
+        }
         }
         else {
             homePage();

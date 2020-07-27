@@ -14,11 +14,11 @@ function dbConnect()
 }
 
 
-function postFile($emailsender, $password, $emailreceiver)
+function postFile($emailsender, $password, $emailreceiver, $zipName)
 {
     $db = dbConnect();
-    $fileTransfer = $db->prepare('INSERT INTO filetransfer (emailsender, pass, emailreceiver, date_creation) VALUES(?,?,?, NOW())');
-    $affectedLines = $fileTransfer->execute(array($emailsender, $password, $emailreceiver));
+    $fileTransfer = $db->prepare('INSERT INTO filetransfer (emailsender, pass, emailreceiver, zip_name,date_creation) VALUES(?,?,?,?, NOW())');
+    $affectedLines = $fileTransfer->execute(array($emailsender, $password, $emailreceiver, $zipName));
 
     return $affectedLines;
 }
@@ -28,7 +28,7 @@ function postFile($emailsender, $password, $emailreceiver)
 function viewFile()
 {
     $db = dbConnect();
-    $posts = $db->query('SELECT id, emailsender, pass, emailreceiver, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation FROM filetransfer  ORDER BY date_creation DESC LIMIT 0, 5');
+    $posts = $db->query('SELECT id, emailsender, pass, emailreceiver, zip_name, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation FROM filetransfer  ORDER BY date_creation DESC LIMIT 0, 5');
     
 
     return $posts;
@@ -63,7 +63,7 @@ function sendMail($emailsender, $password, $emailreceiver)
     // Create the message
     $message = (new Swift_Message())
       // Add subject
-      ->setSubject($emailsender .'vous a envoyé un fichier sur Thetransfer')
+      ->setSubject($emailsender .' vous a envoyé un fichier sur Thetransfer')
     
       //Put the From address 
      ->setFrom([$emailsender => 'Sender'])
@@ -71,12 +71,18 @@ function sendMail($emailsender, $password, $emailreceiver)
       // Include several To addresses
      ->setTo([$emailreceiver => 'Receiver'])
       
-     ->setBody('<p>Un nouveau fichier vous attend !</p>Vous venez de recevoir un fichier de la part de : '.$emailsender .'<br>Voici le lien : <a href="">dfgfdgfddhhsghdfshs</a><br>Et le mot de passe :'.$password, 'text/html');
+     ->setBody('<p>Un nouveau fichier vous attend !</p>Vous venez de recevoir un fichier de la part de : '.$emailsender .'<br>Voici le lien : <a href="http://localhost/TP09_wetransfer_php/index.php?action=downloadFile">Cliquez ici !</a><br>Et le mot de passe :'.$password, 'text/html');
      
     
         $result = $mailer->send($message);
         var_dump($result);
 
+
+
+}
+
+
+function getFile(){
 
 
 }
