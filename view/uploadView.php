@@ -19,7 +19,7 @@
           <input type="email" name="emailreceiver" id="emailreceiver" value="exemple@test.com" size="50" maxlength="50">
           <br>
           <label for="filesend">Importer votre fichier : </label>
-          <input name="filesend" type="file" id="filesend" multiple />
+          <input name="filesend[]" type="file" id="filesend" multiple />
           <br>
           <label for="contenu">Message : </label>
           <input type="text" name="content" id="content" placeholder="ton texte" size="50" maxlength="255">
@@ -39,15 +39,15 @@
 
 
 <?php
-  while($affiche_message = $viewFile->fetch()){
+  while($display_message = $viewFile->fetch()){
 
 ?>
 <div class="news">
    <h3>
-       <?php echo htmlspecialchars($affiche_message['emailsender']); ?>
-       <em>le <?php echo $affiche_message['date_creation']; ?></em> a envoyé 
-       <?php echo $affiche_message['zip_name']; ?> à <?php echo $affiche_message['emailreceiver']; ?> avec la clé 
-       <?php echo $affiche_message['pass']; ?>
+       <?php echo htmlspecialchars($display_message['emailsender']); ?>
+       <em>le <?php echo $display_message['date_creation']; ?></em> a envoyé 
+       <?php echo $display_message['zip_name']; ?> à <?php echo $display_message['emailreceiver']; ?> avec la clé 
+       <?php echo $display_message['pass']; ?>
     </h3>
 </div>
 <?php

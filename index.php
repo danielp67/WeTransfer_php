@@ -11,57 +11,123 @@ try{
         elseif ($_GET['action'] == 'addFile') {
                 
                     if(isset($_POST['emailsender']) AND isset($_POST['pass']) AND isset($_POST['emailreceiver'])){
-                        $name= $_FILES['filesend']['name'];
-
-                        $tmp_name= $_FILES['filesend']['tmp_name'];
-                        
-                        $date= time();
-                        $newName =$date.'_'.$name;
-                        
+                        $countfiles =0;
+                        $countfiles = count($_FILES['filesend']['name']);
+                        $sizefiles =0;
+                        $date= time();  
                         $path= "C:/wamp64/www/TP09_wetransfer_php/upload/";
-                       
-                            if (empty($name))
+                        
+                        for($i=0;$i<$countfiles;$i++){
+                            $sizefiles += $_FILES['filesend']['size'][$i];
+                        }
+
+                            if($sizefiles>0 && $sizefiles<2000000)
                             {
-                            echo "Please choose a file";
-                            
-                            }
-                            else
-                            {
-                            if (move_uploaded_file($tmp_name, $path . $newName)) {
                                 $zip =new ZipArchive;
                                 $zipName = $date.'.zip';
                                 if($zip->open($zipName, ZipArchive::CREATE)=== TRUE){
+
+                                   
+                                    for($i=0;$i<$countfiles;$i++){
                                     
-                                    $zip->addFile($path.$newName, $newName);
+                                    $name= $_FILES['filesend']['name'][$i];
+                                    $tmp_name= $_FILES['filesend']['tmp_name'][$i];
+                                    $newName[$i] =$date.'_'.$name;
+                                    $sizefiles += $_FILES['filesend']['size'][$i];
+                                    
+                                    // Upload file
+                                    move_uploaded_file($tmp_name, $path . $newName[$i]);
+                                    $zip->addFile($path.$newName[$i], $newName[$i]);
+                                    
+                          
+                                }                     
                                     $zip->close();
+
+                                    for($i=0;$i<$countfiles;$i++){
+                                    unlink($path.$newName[$i]);
+                                    }
+
                                     rename('C:/wamp64/www/TP09_wetransfer_php/'.$zipName ,'C:/wamp64/www/TP09_wetransfer_php/upload/'.$zipName);
-                                    unlink($path.$newName);
+                                   
+                                    echo 'Uploaded!';
+                                    echo $countfiles;
+                                   
+                                    echo 'Uploaded!';
                                     echo   $zipName;
                                     echo 'Uploaded!';
+                                    echo   $sizefiles;
                                     addFile($_POST['emailsender'], $_POST['pass'], $_POST['emailreceiver'], $zipName);
                                     } else {
                                     echo 'échec';
                                     }
-                                }
+                            }
+                            else
+                            {
+                                throw new Exception( "Please choose a file");
+                            
+                            }
                          
-                            }
-                            
-                            }
-                            
-                        
+                    }
                     
                     else{ // Autre exception
                         throw new Exception('Tous les champs ne sont pas remplis !');
                     }
                 }
-        elseif ($_GET['action'] == 'downloadFile') {
-            downloadFile();
+        elseif ($_GET['action'] == 'getFile') {
+            if(isset($_GET['zip_name'])){
+                 getFile($_GET['zip_name']);
+                }
+            else{
+                throw new Exception("Zip Id missing");
+                            
+            }
+        
+        }
 
+        elseif ($_GET['action'] == 'downloadFile') {
+            if(isset($_POST['pass']) AND isset($_POST['emailreceiver'])){
+                $checkFile=checkFile($_GET['zip_name']);
+                
+
+                if( $checkFile['pass'] == $_POST['pass'] AND  $checkFile['emailreceiver'] == $_POST['emailreceiver']){
+                    
+                    $status=downloadFile($_GET['zip_name']);
+                    
+                    if($status){
+                        finaleView($_GET['zip_name']);
+                    }
+
+                   }
+               else{
+                   throw new Exception("email or password incorrect");
+                               
+               }
+
+            }
+
+
+            else{
+                throw new Exception("Some Id missing");
+                            
+            }
         }
-        }
+
+
+    }
         else {
             homePage();
         }
+                
+                /*
+                if (isset($_GET['page'])) {
+                    if ($_GET['page'] == 'downloadFile') {
+                        downloadFile();
+                    }
+                }
+                    else {
+                    
+                    }
+                */
     }
     catch(Exception $e) { // S'il y a eu une erreur, alors...
         echo 'Erreur : ' . $e->getMessage();
