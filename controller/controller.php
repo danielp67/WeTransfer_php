@@ -3,9 +3,9 @@ require_once('C:\wamp64\www\TP09_wetransfer_php\model\model.php');
 require_once('C:\wamp64\www\TP09_wetransfer_php\model\MailManager.php');
 
 
-function addFile($emailsender, $password, $emailreceiver, $zipName, $zipSize){
-
-    $addFile = postFile($emailsender, $password, $emailreceiver, $zipName, $zipSize, $_POST['content']);
+function addFile($emailsender, $password, $emailreceiver, $zipName, $zipSize, $countfiles){
+    $pass_hash=password_hash($password, PASSWORD_DEFAULT);
+    $addFile = postFile($emailsender, $pass_hash, $emailreceiver, $zipName, $zipSize, $countfiles, $_POST['content']);
     $viewFile = fileSend($zipName);
     $sendMailToReceiver=sendMailToReceiver($emailsender, $password, $emailreceiver, $zipName);
     //$sendMailToSender=sendMailToSender($emailsender, $password, $emailreceiver, $zipName);
@@ -55,7 +55,7 @@ function finaleView($checkFile,$zipName){
     $path= "/TP09_wetransfer_php/upload/";
     $downloadFile = $path.$zipName;
     $status=true;
-  sendMailToRemove($checkFile['emailsender'], $checkFile['emailreceiver'],$zipName);
+  //sendMailToRemove($checkFile['emailsender'], $checkFile['emailreceiver'],$zipName);
    require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
 }
 
