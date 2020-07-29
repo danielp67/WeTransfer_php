@@ -11,10 +11,16 @@ try{
         elseif ($_GET['action'] == 'addFile') {
                 
                     if(isset($_POST['emailsender']) AND isset($_POST['pass']) AND isset($_POST['emailreceiver'])){
+                        
+                        $emailsender=htmlspecialchars($_POST['emailsender']);
+                        $password=htmlspecialchars($_POST['pass']);
+                        $emailreceiver=htmlspecialchars($_POST['emailreceiver']);
+                        
                         $countfiles =0;
                         $countfiles = count($_FILES['filesend']['name']);
                         $sizefiles =0;
-                        $date= time();  
+                        $date= time();
+                        $crypt = bin2hex(random_bytes(5));
                         $path= "C:/wamp64/www/TP09_wetransfer_php/upload/";
                         
                         for($i=0;$i<$countfiles;$i++){
@@ -24,7 +30,7 @@ try{
                             if($sizefiles>0 && $sizefiles<2000000)
                             {
                                 $zip =new ZipArchive;
-                                $zipName = $date.'.zip';
+                                $zipName = $crypt.'.zip';
                                 if($zip->open($zipName, ZipArchive::CREATE)=== TRUE){
 
                                    
@@ -51,7 +57,7 @@ try{
                                     rename('C:/wamp64/www/TP09_wetransfer_php/'.$zipName ,'C:/wamp64/www/TP09_wetransfer_php/upload/'.$zipName);
                                     $zipSize = filesize('C:/wamp64/www/TP09_wetransfer_php/upload/'.$zipName);
 
-                                    addFile($_POST['emailsender'], $_POST['pass'], $_POST['emailreceiver'], $zipName, $zipSize);
+                                    addFile($emailsender, $password, $emailreceiver, $zipName, $zipSize, $countfiles);
                                     } else {
                                     echo 'échec';
                                     }
@@ -81,10 +87,13 @@ try{
 
         elseif ($_GET['action'] == 'downloadFile') {
             if(isset($_POST['pass']) AND isset($_POST['emailreceiver'])){
-                $checkFile=checkFile($_GET['zip_name']);
                 
-
-                if( $checkFile['pass'] == $_POST['pass'] AND  $checkFile['emailreceiver'] == $_POST['emailreceiver']){
+                $checkFile=checkFile($_GET['zip_name']);
+                $pass=htmlspecialchars($_POST['pass']);
+                $emailreceiver=htmlspecialchars($_POST['emailreceiver']);
+                $pass_co_hash=password_verify($pass,$checkFile['pass']);
+                
+                if( $pass_co_hash AND  $checkFile['emailreceiver'] == $emailreceiver){
                     
                     finaleView($checkFile,$_GET['zip_name']);
                     //downloadFile($_GET['zip_name']);

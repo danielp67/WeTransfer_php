@@ -10,10 +10,9 @@
 ?>
 <h2>Bienvenue sur le transfert de fichiers !</h2>
 
-<p class="news">Récupérer votre fichier :</p>
 
-      <form method="post" action="index.php?action=downloadFile&amp;zip_name=<?php echo $getFile['zip_name']; ?>" class="news" enctype="multipart/form-data">
-    
+      <form method="post" action="index.php?action=downloadFile&amp;zip_name=<?php echo $getFile['zip_name']; ?>" class="form" enctype="multipart/form-data">
+      <legend>Récupérer votre fichier :</legend>
           <label for="email">Votre email : </label>
           <input type="text" name="emailreceiver" id="emailreceiver" value="exemple@test.com" size="50" maxlength="50">
           <br>    
@@ -28,18 +27,16 @@
 
      
 
-<p class='news'>Etat du transfert</p>
 
-<div class="news">
+<div class="resume">
    <p>
        Votre email :<?php echo htmlspecialchars($getFile['emailsender']); ?><br>
        Date :<?php echo $getFile['date_creation']; ?><br>
        Nom de fichier : <?php echo $getFile['zip_name']; ?> <br>
-       Nombre de fichiers : <?php echo $getFile['zip_name']; ?> <br>
+       Nombre de fichiers : <?php echo $getFile['file_number']; ?> <br>
        Destinataire : <?php echo $getFile['emailreceiver']; ?>  <br>
        Poids du fichier :<?php echo ($getFile['zip_size']/1000); ?> Ko
        Message : <?php echo $getFile['content']; ?> <br><br>
-       <?php echo $getFile['pass']; ?>
 </p>
 </div>
 
