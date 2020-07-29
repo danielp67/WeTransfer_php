@@ -2,8 +2,13 @@
   		
 
 <main>
+<h1>WeeZip 2.0 !</h1>
 
-<h1>Bienvenue sur le transfert de fichiers 2.0 !</h1>
+<?php
+  if(!isset($status)){
+  
+?>
+<h2>Bienvenue sur le transfert de fichiers !</h2>
 
 <p class="news">Récupérer votre fichier :</p>
 
@@ -27,14 +32,51 @@
 
 <div class="news">
    <p>
-       <?php echo htmlspecialchars($getFile['emailsender']); ?>
-       <em>le <?php echo $getFile['date_creation']; ?></em> a envoyé 
-       <?php echo $getFile['zip_name']; ?> à <?php echo $getFile['emailreceiver']; ?> avec la clé 
+       Votre email :<?php echo htmlspecialchars($getFile['emailsender']); ?><br>
+       Date :<?php echo $getFile['date_creation']; ?><br>
+       Nom de fichier : <?php echo $getFile['zip_name']; ?> <br>
+       Nombre de fichiers : <?php echo $getFile['zip_name']; ?> <br>
+       Destinataire : <?php echo $getFile['emailreceiver']; ?>  <br>
+       Poids du fichier :<?php echo ($getFile['zip_size']/1000); ?> Ko
+       Message : <?php echo $getFile['content']; ?> <br><br>
        <?php echo $getFile['pass']; ?>
 </p>
 </div>
 
 
+<?php
+}
+
+if(isset($status) AND isset($delete)){
+  
+    ?>
+    <div class="news">
+    <h1>Merci d'avoir utilisé WeeZip 2.0 !</h1>
+    <p class='news'>Votre fichier a été détruit avec succès !</p>
+    <a href="index.php">Refaire un nouvel envoi ?</a>
+    </div>
+    <?php
+    
+      
+    }
+
+elseif(isset($status) AND !isset($delete)){
+  
+?>
+<div class="news">
+<h1>Merci d'avoir utilisé WeeZip 2.0 !</h1>
+<p class='news'>Votre fichier a été téléchargé avec succès !</p>
+
+   
+        <a href="<?php echo $downloadFile ?>">Cliquer ici si le téléchargement n'a pas démarrer</a>
+  
+</div>
+<?php
+
+  
+}
+
+ ?>
 
 </main>
 

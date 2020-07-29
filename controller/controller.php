@@ -1,58 +1,69 @@
 <?php
 require_once('C:\wamp64\www\TP09_wetransfer_php\model\model.php');
+require_once('C:\wamp64\www\TP09_wetransfer_php\model\MailManager.php');
 
 
+function addFile($emailsender, $password, $emailreceiver, $zipName, $zipSize){
 
-function addFile($emailsender, $password, $emailreceiver, $zipname){
-
-    $addFile = postFile($emailsender, $password, $emailreceiver, $zipname);
-    $viewFile = viewFile();
-    $sendMailToReceiver=sendMailToReceiver($emailsender, $password, $emailreceiver, $zipname);
-    //$sendMailToSender=sendMailToSender($emailsender, $password, $emailreceiver, $zipname);
+    $addFile = postFile($emailsender, $password, $emailreceiver, $zipName, $zipSize, $_POST['content']);
+    $viewFile = fileSend($zipName);
+    $sendMailToReceiver=sendMailToReceiver($emailsender, $password, $emailreceiver, $zipName);
+    //$sendMailToSender=sendMailToSender($emailsender, $password, $emailreceiver, $zipName);
     require('C:\wamp64\www\TP09_wetransfer_php\view\uploadView.php');
 
 }
 
 function homePage(){
 
-    $viewFile = viewFile();
-
     require('C:\wamp64\www\TP09_wetransfer_php\view\uploadView.php');
 }
 
 
 
-function getFile($zipname){
-    $getFile = fileSend($zipname);
+function getFile($zipName){
+    $getFile = fileSend($zipName);
 
     require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
     return  $getFile;
 }
 
 
-function checkFile($zipname){
-    $getFile = fileSend($zipname);
-
+function checkFile($zipName){
+    $getFile = fileSend($zipName);
+    
     return  $getFile;
 }
 
 
-function downloadFile($zipname){
+function downloadFile($zipName){
     $path= "/TP09_wetransfer_php/upload/";
-    $downloadFile = $path.$zipname;
-   // header("Content-Disposition: attachment; filename=\"" . basename($downloadFile) . "\"");
-    require('C:\wamp64\www\TP09_wetransfer_php\view\finaleView.php');
-   
+    $downloadFile = $path.$zipName;
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
     header('Location: '.$downloadFile);
-   
-    return true;
+    //header('Content-Disposition: attachment; filename="'.basename($zipName).'"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($zipName));
+    //readfile($zipName);
+    //header('Location: '.$downloadFile);
 }
 
 
-function finaleView($zipname){
+function finaleView($checkFile,$zipName){
     $path= "/TP09_wetransfer_php/upload/";
-    $downloadFile = $path.$zipname;
-  //  header("Content-Disposition: attachment; filename=\"" . basename($downloadFile) . "\"");
-  //  require('C:\wamp64\www\TP09_wetransfer_php\view\finaleView.php');
-  //  header("Content-Disposition: attachment; filename=\"" . basename($downloadFile) . "\"");
+    $downloadFile = $path.$zipName;
+    $status=true;
+  sendMailToRemove($checkFile['emailsender'], $checkFile['emailreceiver'],$zipName);
+   require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
+}
+
+
+
+function deleteFile($zipName){
+    $deleteFile=fileDelete($zipName);
+    $status=true;
+    $delete=true;
+    require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
 }

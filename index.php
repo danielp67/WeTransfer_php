@@ -41,6 +41,7 @@ try{
                                     
                           
                                 }                     
+                                   
                                     $zip->close();
 
                                     for($i=0;$i<$countfiles;$i++){
@@ -48,15 +49,9 @@ try{
                                     }
 
                                     rename('C:/wamp64/www/TP09_wetransfer_php/'.$zipName ,'C:/wamp64/www/TP09_wetransfer_php/upload/'.$zipName);
-                                   
-                                    echo 'Uploaded!';
-                                    echo $countfiles;
-                                   
-                                    echo 'Uploaded!';
-                                    echo   $zipName;
-                                    echo 'Uploaded!';
-                                    echo   $sizefiles;
-                                    addFile($_POST['emailsender'], $_POST['pass'], $_POST['emailreceiver'], $zipName);
+                                    $zipSize = filesize('C:/wamp64/www/TP09_wetransfer_php/upload/'.$zipName);
+
+                                    addFile($_POST['emailsender'], $_POST['pass'], $_POST['emailreceiver'], $zipName, $zipSize);
                                     } else {
                                     echo 'échec';
                                     }
@@ -91,18 +86,16 @@ try{
 
                 if( $checkFile['pass'] == $_POST['pass'] AND  $checkFile['emailreceiver'] == $_POST['emailreceiver']){
                     
-                    $status=downloadFile($_GET['zip_name']);
-                    
-                    if($status){
-                        finaleView($_GET['zip_name']);
-                    }
+                    finaleView($checkFile,$_GET['zip_name']);
+                    //downloadFile($_GET['zip_name']);
+                   
+                 }
 
-                   }
                else{
                    throw new Exception("email or password incorrect");
                                
                }
-
+               
             }
 
 
@@ -110,6 +103,21 @@ try{
                 throw new Exception("Some Id missing");
                             
             }
+        }
+
+        elseif ($_GET['action'] == 'deleteFile') {
+            
+                $deleteFile=deleteFile($_GET['zip_name']);
+                unlink('C:/wamp64/www/TP09_wetransfer_php/upload/'.$_GET['zip_name']);
+
+                 
+
+              
+               
+            
+
+
+            
         }
 
 
