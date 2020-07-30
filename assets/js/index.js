@@ -1,4 +1,3 @@
-console.log('test');
 
 // Gestion menu burger
 const mainMenu = document.querySelector("#nav_menu");
@@ -24,48 +23,127 @@ liens.forEach(lien =>{
 })
 
 
+
+
+
 // Gestion drag and drop
-/*
-const dropZone = document.querySelector("#dropzone");
-document.querySelector('#dropzone').addEventListener('drop', function drag_drop(event){
-	event.prevenDefault();
-	alert(event.dataTransfer.files[0]);
-	alert(event.dataTransfer.files[0].name);
-	alert(event.dataTransfer.files[0].size+" bytes");
-});
 
+let fileInput = document.querySelector("#fileinput");
+let droparea = document.querySelector("#dropzone");
+let fileNb = document.querySelector("#filenumber");
 
-document.querySelector('#dropzone').addEventListener('drop', function(e) {
-    e.preventDefault(); // Cette méthode est toujours nécessaire pour éviter une éventuelle redirection inattendue
-    alert('Vous avez bien déposé votre élément !');
-});
-*/
-
-var fileInput = document.querySelector("#fileput");
-var droparea = document.querySelector("#dropzone");
-console.log(fileInput);
-console.log(droparea);
-
-droparea.addEventListener('click', function(e) {
-	droparea.classList.toggle('opacity');
+droparea.addEventListener('dragover', function(e) {
+	droparea.classList.add('opacity');
 	e.preventDefault();
     e.stopPropagation();
-	console.log("droparea");
+	console.log("dragenter");
   });
   
+
 // back to normal state
-droparea.addEventListener('dragleave dragend drop', function(e) {
-  droparea.classList.remove('opacity');
-  e.preventDefault();
-  e.stopPropagation();
-});
+droparea.addEventListener("dragleave", function(e) {
+	droparea.classList.remove('opacity');
+	console.log("dragleave");
+  });
 
 
 
+let filesInput=[];
+let cross=[];
+let text=[];
+let i=0;
+let filesTransfer =[];
 
+function fileNumber(){
+	if(filesInput.length>=1){
+		fileNb.innerHTML= filesInput.length + ' fichier(s)';
+	}else if(fileNb){
+		fileNb.innerHTML='Importer votre fichier :' 
+	}
+}
+fileNumber();
 
 droparea.addEventListener('drop', function(e) {
-    e.preventDefault(); // Cette méthode est toujours nécessaire pour éviter une éventuelle redirection inattendue
-    console.log('Vous avez bien déposé votre élément !');
+    e.preventDefault();
+	droparea.classList.remove('opacity');
+	console.log('Vous avez bien déposé votre élément !');
+	let files = e.dataTransfer.files;
+
+	 let filezise = "";
+      let  filenames = "";
+	  let n=0;
+		n=filesInput.length;
+	 
+	  console.log(files);
+	 
+    for (i=n; i < (files.length+n) ; i++) {
+		let p=0;
+		filesTransfer[i]=files[p];
+		filenames =  files[p].name;
+		filezise = Math.round(parseInt(files[p].size)/1000) + ' Ko';
+		filesInput[i] = document.createElement("div");
+		filesInput[i].classList.add("fileinput");
+		fileInput.appendChild(filesInput[i]);
+		
+		text[i] = document.createElement("div");
+		text[i].classList.add("fileinputtext");
+		filesInput[i].appendChild(text[i]);
+		text[i].innerHTML =filenames + ' '+ filezise;
+		console.log(text[i]);
+
+		cross[i] = document.createElement("div");
+		cross[i].classList.add("fileinputcross");
+		filesInput[i].appendChild(cross[i]);
+		cross[i].innerHTML ='X';
+		p++;
+	}
+	
+	fileNumber();
+	console.log(filesTransfer);
 });
+
+
+
+
+
+let filesend = document.querySelector('#filesend');
+let progress = document.querySelector('#progress');
+
+
+droparea.addEventListener('submit', function() {
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', "index.php?action=addFile"); // Rappelons qu'il est obligatoire d'utiliser la méthode POST quand on souhaite utiliser un FormData
+
+	xhr.upload.addEventListener('progress', function(e) {
+        progress.value = e.loaded;
+        progress.max = e.total;
+	});
+	
+
+	// Upload du fichier…
+	var form = new FormData();
+
+form.append('filesend[]', filesTransfer.files);
+console.log("test");
+console.log(filesTransfer);
+xhr.send(form);
+
+});
+
+
+
+filesend.addEventListener('change', function() {
+
+	var form = new FormData();
+
+form.append('filesend[]', filesend.files);
+console.log("test");
+
+console.log(filesend.files);
+
+});
+
+
 

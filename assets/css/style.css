@@ -224,7 +224,7 @@ main{
 }
 
 
-#dropzone{
+.viewzone{
     height: 100%;
     width :100%;
     display: flex;
@@ -267,20 +267,48 @@ main{
 
 
 .opacity{
-    opacity: 0.5;
-}
-
-#fileput{
-    background-color: red;
+ opacity: 0.5;
+  background: url('../img/dropzone.png') no-repeat center center;  
 }
 
 
-.dropzone {
-    background-color: #EEE; 
-    border: #999 5px dashed;
-    width: 500px; 
-    height: 500px;
-    margin-left: 200px;
-    margin-top: 200px;
-    font-size: 18px;
+.fileinput{
+    background-color: rgb(43, 197, 151);
+    color: rgb(0, 0, 0);
+    border-radius:5px ;
+    -webkit-border-radius:5px ;
+    -moz-border-radius:5px ;
+    -ms-border-radius:5px ;
+    -o-border-radius:5px ;
+    margin-top: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+
+
+.fileinput:hover{
+    background-color: rgb(0, 250, 175);
+   
+}
+
+
+.fileinputcross{
+    color:  rgb(43, 197, 151);
+    right :0px;
+    width: 20px;
+    height: 100%;
+    top :0px;
+    
+}
+
+.fileinputcross:hover{
+    color: rgb(255, 255, 255);
+}
+
+.fileinputtext{
+    width : 80%;
+    height: 100%;
 }
