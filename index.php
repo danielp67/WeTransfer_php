@@ -9,8 +9,8 @@ try{
                 homePage();
             }
         elseif ($_GET['action'] == 'addFile') {
-                
-                    if(isset($_POST['emailsender']) AND isset($_POST['pass']) AND isset($_POST['emailreceiver'])){
+                var_dump($_POST);
+                    if(!empty($_POST['emailsender']) && !empty($_POST['pass']) && !empty($_POST['emailreceiver'])){
                         
                         $emailsender=htmlspecialchars($_POST['emailsender']);
                         $password=htmlspecialchars($_POST['pass']);
@@ -20,8 +20,9 @@ try{
                         $countfiles = count($_FILES['filesend']['name']);
                         $sizefiles =0;
                         $date= time();
-                        $crypt = bin2hex(random_bytes(5));
+                        $name = bin2hex(random_bytes(5));
                         $path= "C:/wamp64/www/TP09_wetransfer_php/upload/";
+                        var_dump($_FILES);
                         
                         for($i=0;$i<$countfiles;$i++){
                             $sizefiles += $_FILES['filesend']['size'][$i];
@@ -30,20 +31,19 @@ try{
                             if($sizefiles>0 && $sizefiles<2000000)
                             {
                                 $zip =new ZipArchive;
-                                $zipName = $crypt.'.zip';
+                                $zipName = $name.'.zip';
                                 if($zip->open($zipName, ZipArchive::CREATE)=== TRUE){
 
                                    
                                     for($i=0;$i<$countfiles;$i++){
                                     
-                                    $name= $_FILES['filesend']['name'][$i];
+                                    $filename[$i]= $_FILES['filesend']['name'][$i];
                                     $tmp_name= $_FILES['filesend']['tmp_name'][$i];
-                                    $newName[$i] =$date.'_'.$name;
                                     $sizefiles += $_FILES['filesend']['size'][$i];
                                     
                                     // Upload file
-                                    move_uploaded_file($tmp_name, $path . $newName[$i]);
-                                    $zip->addFile($path.$newName[$i], $newName[$i]);
+                                    move_uploaded_file($tmp_name, $path . $filename[$i]);
+                                    $zip->addFile($path.$filename[$i], $filename[$i]);
                                     
                           
                                 }                     
@@ -51,15 +51,19 @@ try{
                                     $zip->close();
 
                                     for($i=0;$i<$countfiles;$i++){
-                                    unlink($path.$newName[$i]);
+                                    unlink($path.$filename[$i]);
                                     }
 
                                     rename('C:/wamp64/www/TP09_wetransfer_php/'.$zipName ,'C:/wamp64/www/TP09_wetransfer_php/upload/'.$zipName);
                                     $zipSize = filesize('C:/wamp64/www/TP09_wetransfer_php/upload/'.$zipName);
 
-                                    addFile($emailsender, $password, $emailreceiver, $zipName, $zipSize, $countfiles);
-                                    } else {
-                                    echo 'échec';
+                                    addFile($emailsender, $password, $emailreceiver, $name, $zipSize, $countfiles);
+
+                                    } 
+                                    else {
+
+                                        throw new Exception( "Error on adding files");
+                            
                                     }
                             }
                             else
@@ -86,7 +90,7 @@ try{
         }
 
         elseif ($_GET['action'] == 'downloadFile') {
-            if(isset($_POST['pass']) AND isset($_POST['emailreceiver'])){
+            if(!empty($_POST['pass']) AND !empty($_POST['emailreceiver'])){
                 
                 $checkFile=checkFile($_GET['zip_name']);
                 $pass=htmlspecialchars($_POST['pass']);
