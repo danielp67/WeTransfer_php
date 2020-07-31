@@ -72,7 +72,7 @@ function sendMailToSender($emailsender, $password, $emailreceiver, $zipname)
     // Create the message
     $message = (new Swift_Message())
       // Add subject
-      ->setSubject($emailsender .' vous a envoyé un fichier sur Weezip2.0')
+      ->setSubject('Bravo ! Votre fichier a été envoyé sur Weezip2.0')
     
       //Put the From address 
      ->setFrom(['weezip@new.com' => 'Sender'])
