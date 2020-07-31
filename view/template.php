@@ -21,7 +21,7 @@
                        <li><a href="mesplus">Aide</a></li>
                        <li><a href="mecontacter">Nous contacter</a></li>
                        <li><a href="mecontacter">Se connecter</a></li>
-                       <li><a href="mecontacter">Rechercher un transfert</a></li>
+                       <li><a href="index.php?action=searchFile">Rechercher un transfert</a></li>
                    </ul>   
            </nav>
 

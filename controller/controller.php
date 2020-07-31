@@ -7,8 +7,8 @@ function addFile($emailsender, $password, $emailreceiver, $zipName, $zipSize, $c
     $pass_hash=password_hash($password, PASSWORD_DEFAULT);
     $addFile = postFile($emailsender, $pass_hash, $emailreceiver, $zipName, $zipSize, $countfiles, $_POST['content']);
     $viewFile = fileSend($zipName);
-    //$sendMailToReceiver=sendMailToReceiver($emailsender, $password, $emailreceiver, $zipName);
-    //$sendMailToSender=sendMailToSender($emailsender, $password, $emailreceiver, $zipName);
+    $sendMailToReceiver=sendMailToReceiver($emailsender, $password, $emailreceiver, $zipName);
+    $sendMailToSender=sendMailToSender($emailsender, $password, $emailreceiver, $zipName);
     require('C:\wamp64\www\TP09_wetransfer_php\view\uploadView.php');
 
 }
@@ -23,7 +23,11 @@ function homePage(){
 function getFile($zipName){
     $getFile = fileSend($zipName);
 
+if($getFile === false ){
+    throw new Exception('Fichier inexistant !');
+}else{
     require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
+}
     return  $getFile;
 }
 
@@ -55,8 +59,8 @@ function finaleView($checkFile,$zipName){
     $path= "/TP09_wetransfer_php/upload/";
     $downloadFile = $path.$zipName;
     $status=true;
-  //sendMailToRemove($checkFile['emailsender'], $checkFile['emailreceiver'],$zipName);
-   require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
+    $fileStatus=fileStatus($zipName);
+    require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
 }
 
 
@@ -66,4 +70,24 @@ function deleteFile($zipName){
     $status=true;
     $delete=true;
     require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
+}
+
+
+function deleteOldFile(){
+    $listDeleteFile=fileDeleteByDate();
+   
+    for( $i=0 ; $i< count($listDeleteFile); $i++){
+        unlink('C:/wamp64/www/TP09_wetransfer_php/upload/'.$listDeleteFile[$i].'.zip');
+      }
+
+    $deleteFiles = filesDelete();
+    return $listDeleteFile;
+}
+
+
+
+function searchFile(){
+    require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
+   
+    return  $searchFile;
 }

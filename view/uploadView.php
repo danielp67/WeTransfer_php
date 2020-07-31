@@ -13,37 +13,49 @@
 <?php
 if(!isset($viewFile)){
   ?>
-
-      <form method="post" action="index.php?action=addFile" class="formupload" enctype="multipart/form-data">
-            <legend>Effectuer un nouveau transfert :</legend>
+    
+      <form method="POST" action="index.php?action=addFile" class="formupload" id="style-4" enctype="multipart/form-data">
+        <div class="scrollbar" id="style-4">
+            <legend>Importer des fichiers :</legend>
             <div id="fileinput"></div>
             <br>
             <label for="filesend"><span id="filenumber"></span></label>
-            <input name="file" type="file" id="filesend" multiple />
+            <input type="file" name="filesend[]"  files="no" id="filesend" class="inputfile" multiple />
             <br>
-            <label for="email">Votre email : </label>
-            <input type="text" name="emailsender" id="emailsender"  value="daniel@test.com" size="30" maxlength="30">
-            <br>    
-            <label for="pass">Mot de passe de protection : </label>
-            <input type="password" name="pass" id="pass" placeholder="6 caractères" size="30" maxlength="10" >
-            <br>
-            <label for="email">Email du destinataire : </label>
-            <input type="email" name="emailreceiver" id="emailreceiver" value="exemple@test.com" size="30" maxlength="30">
-            
-            
-            <br>
-            <label for="content">Message : </label>
-            <input type="text" name="content" id="content" placeholder="ton texte" size="30" maxlength="255">
-            <br>
-            <label for="emailtransfer"><input type="radio" name="transfertype" value="yes" id="emailtransfer" checked/>Envoyer un transfert par email</label>
-            <br>
-            <label for="linktransfer"><input type="radio" name="transfertype" value="no" id="linktransfer" />Obtenir un lien de transfert</label>
-            <br>
-            <label for="filestatus">Taille fichiers :</label>
-            <progress id="progress" value="0" max="2000000"   ></progress>
-            <input type="submit" value="Transférer" />
+            <div class="form__group field">
+            <input type="email" class="form__field" placeholder="Email" name="emailsender" id='emailsender' value="daniel@test.fr" required />
+            <label for="email" class="form__label">Votre email</label>
+            </div>
 
+            <div class="form__group field">  
+            <input type="password" name="pass" id="pass" placeholder="6 caractères" class="form__field" maxlength="10" >
+            <label for="pass" class="form__label">Mot de passe</label>
+            </div>
+
+            <div class="form__group field">  
+            <input type="email" class="form__field" placeholder="Email" name="emailreceiver" id="emailreceiver" value="exemple@test.com"   maxlength="30">
+            <label for="email" class="form__label">Email destinataire</label>
+            </div>
+            
+            <div class="form__group field">  
+            
+            <input type="text" name="content" id="content" placeholder="ton texte" class="form__field"  maxlength="255">
+            <label for="content" class="form__label">Message</label>    
+            </div>
+            <label for="emailtransfer"><input type="radio" name="transfertype" value="yes" id="emailtransfer"  class="radio" checked/>Envoyer un transfert par email</label>
+            <br>
+            <label for="linktransfer"><input type="radio" name="transfertype" value="no" id="linktransfer" class="radio" />Obtenir un lien de transfert</label>
+            <br>
+        </div>
+        <div class="btn">
+            <hr>
+            <label for="filestatus">Taille fichiers :</label>
+            <br>
+            <progress id="progress" value="0" max="2000000"   ></progress>
+            <input type="submit" value="Transférer" id="btnupload" />
+        </div>
       </form>
+    
       <?php
 
   

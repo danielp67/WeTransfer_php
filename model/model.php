@@ -35,14 +35,35 @@ function fileSend($zipname){
 }
 
 
-
-function fileDelete($zipname){
+function fileStatus($zipname){
     $db = dbConnect();
-    $filesend = $db->prepare('DELETE FROM filetransfer  WHERE zip_name = ?');
-        $filesend->execute(array($zipname));
-        $send = $filesend->fetch();
+    $fileStatus = $db->prepare('UPDATE  filetransfer SET file_status = 1 WHERE zip_name = ?');
+    $fileStatus->execute(array($zipname ));
 
-        return $send;
+        return $fileStatus;
 }
 
 
+function fileDeleteByDate(){
+    $db = dbConnect();
+    $zip = 1;
+    $filedelete = $db->query('SELECT zip_name FROM filetransfer WHERE date_creation < CURDATE()-7 ');
+    
+    $listFileDelete =[];
+    $i=0;
+    while($affiche_message = $filedelete->fetch()){
+    $listFileDelete[$i] = $affiche_message['zip_name'];
+    $i++;
+    }
+
+    return $listFileDelete;
+}
+
+
+function filesDelete(){
+    $db = dbConnect();
+
+    $filesend = $db->query('DELETE FROM filetransfer  WHERE  date_creation < CURDATE()-7');
+
+        return $filesend;
+}
