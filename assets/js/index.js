@@ -40,7 +40,6 @@ droparea.addEventListener('dragover', function(e) {
   });
   
 
-// back to normal state
 droparea.addEventListener("dragleave", function(e) {
 	droparea.classList.remove('opacity');
 	console.log("dragleave");
@@ -48,38 +47,52 @@ droparea.addEventListener("dragleave", function(e) {
 
 
 
+
+// Gestion upload
+
 let filesInput=[];
 let cross=[];
 let text=[];
 let i=0;
 let filesTransfer =[];
+let formData;
+
+let filesend = document.querySelector('#filesend');
+let progress = document.querySelector('#progress');
+const url ='index.php?action=addFile';
+const form = document.querySelector('form');
+console.log(form);
 
 function fileNumber(){
 	if(filesInput.length>=1){
 		fileNb.innerHTML= filesInput.length + ' fichier(s)';
 	}else if(fileNb){
-		fileNb.innerHTML='Importer votre fichier :' 
+		fileNb.innerHTML='' ;
 	}
 }
 fileNumber();
+
+
 
 droparea.addEventListener('drop', function(e) {
     e.preventDefault();
 	droparea.classList.remove('opacity');
 	console.log('Vous avez bien déposé votre élément !');
 	let files = e.dataTransfer.files;
-
-	 let filezise = "";
-      let  filenames = "";
+	console.log("e.dataTransfer.files");
+	console.log(e.dataTransfer.files);
+	let filezise = "";
+      let  filename = "";
 	  let n=0;
-		n=filesInput.length;
-	 
+	  n=filesTransfer.length;
+		console.log("files");
 	  console.log(files);
-	 
+	  let p=0;
     for (i=n; i < (files.length+n) ; i++) {
-		let p=0;
+
 		filesTransfer[i]=files[p];
-		filenames =  files[p].name;
+		
+		filename =  files[p].name;
 		filezise = Math.round(parseInt(files[p].size)/1000) + ' Ko';
 		filesInput[i] = document.createElement("div");
 		filesInput[i].classList.add("fileinput");
@@ -88,7 +101,7 @@ droparea.addEventListener('drop', function(e) {
 		text[i] = document.createElement("div");
 		text[i].classList.add("fileinputtext");
 		filesInput[i].appendChild(text[i]);
-		text[i].innerHTML =filenames + ' '+ filezise;
+		text[i].innerHTML =filename + ' '+ filezise;
 		console.log(text[i]);
 
 		cross[i] = document.createElement("div");
@@ -96,25 +109,26 @@ droparea.addEventListener('drop', function(e) {
 		filesInput[i].appendChild(cross[i]);
 		cross[i].innerHTML ='X';
 		p++;
+
 	}
 	
 	fileNumber();
 	console.log(filesTransfer);
+
 });
 
 
 
 
 
-let filesend = document.querySelector('#filesend');
-let progress = document.querySelector('#progress');
 
 
-droparea.addEventListener('submit', function() {
+/*
+form.addEventListener('submit', function() {
 
     var xhr = new XMLHttpRequest();
 
-    xhr.open('POST', "index.php?action=addFile"); // Rappelons qu'il est obligatoire d'utiliser la méthode POST quand on souhaite utiliser un FormData
+    xhr.open('POST', url); // Rappelons qu'il est obligatoire d'utiliser la méthode POST quand on souhaite utiliser un FormData
 
 	xhr.upload.addEventListener('progress', function(e) {
         progress.value = e.loaded;
@@ -123,12 +137,10 @@ droparea.addEventListener('submit', function() {
 	
 
 	// Upload du fichier…
-	var form = new FormData();
-
-form.append('filesend[]', filesTransfer.files);
-console.log("test");
-console.log(filesTransfer);
+	
 xhr.send(form);
+console.log(form);
+
 
 });
 
@@ -144,6 +156,21 @@ console.log("test");
 console.log(filesend.files);
 
 });
+*/
+/*
+form.addEventListener('submit', (e) => {
+	e.preventDefault();
+	formData = new FormData(form);
+console.log(formData);
 
+for (let a=0; a <filesTransfer.length ;a++){
+	formData.append('filesend[]', filesTransfer[a]);
 
+}
 
+//window.location.href = "index.php?action=addFile";
+ fetch('index.php?action=addFile', {method: 'POST', body: formData});
+	  
+
+	});
+*/

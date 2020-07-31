@@ -7,9 +7,11 @@ try{
         if (isset($_GET['action'])) {
             if ($_GET['action'] == 'homePage') {
                 homePage();
+               
             }
         elseif ($_GET['action'] == 'addFile') {
                 var_dump($_POST);
+                var_dump($_FILES);
                     if(!empty($_POST['emailsender']) && !empty($_POST['pass']) && !empty($_POST['emailreceiver'])){
                         
                         $emailsender=htmlspecialchars($_POST['emailsender']);
@@ -23,7 +25,7 @@ try{
                         $name = bin2hex(random_bytes(5));
                         $path= "C:/wamp64/www/TP09_wetransfer_php/upload/";
                         var_dump($_FILES);
-                        
+
                         for($i=0;$i<$countfiles;$i++){
                             $sizefiles += $_FILES['filesend']['size'][$i];
                         }
@@ -77,7 +79,9 @@ try{
                     else{ // Autre exception
                         throw new Exception('Tous les champs ne sont pas remplis !');
                     }
-                }
+        }
+
+
         elseif ($_GET['action'] == 'getFile') {
             if(isset($_GET['zip_name'])){
                  getFile($_GET['zip_name']);
@@ -118,37 +122,22 @@ try{
             }
         }
 
-        elseif ($_GET['action'] == 'deleteFile') {
+        elseif ($_GET['action'] == 'searchFile') {
+            $searchFile=searchFile();
+                // $listDeleteFile=deleteOldFile();
             
-                $deleteFile=deleteFile($_GET['zip_name']);
-                unlink('C:/wamp64/www/TP09_wetransfer_php/upload/'.$_GET['zip_name']);
+              //  $deleteFile=deleteFile($_GET['zip_name']);
+               // unlink('C:/wamp64/www/TP09_wetransfer_php/upload/'.$_GET['zip_name']);
 
-                 
-
-              
-               
-            
-
-
-            
         }
 
 
     }
         else {
             homePage();
+            $listDeleteFile=deleteOldFile();
         }
                 
-                /*
-                if (isset($_GET['page'])) {
-                    if ($_GET['page'] == 'downloadFile') {
-                        downloadFile();
-                    }
-                }
-                    else {
-                    
-                    }
-                */
     }
     catch(Exception $e) { // S'il y a eu une erreur, alors...
         echo 'Erreur : ' . $e->getMessage();

@@ -17,15 +17,17 @@
     <div class="formupload">
       <form method="post" action="index.php?action=downloadFile&amp;zip_name=<?php echo $getFile['zip_name']; ?>" class="form" enctype="multipart/form-data">
       <legend>Récupérer votre fichier :</legend>
-          <label for="email">Votre email : </label>
-          <input type="text" name="emailreceiver" id="emailreceiver" value="exemple@test.com" size="30" maxlength="50">
-          <br>    
-          <label for="pass">Mot de passe de protection : </label>
-          <input type="password" name="pass" id="pass" placeholder="8 caractères" size="30" maxlength="10" >
-          <br>
+      <div class="form__group field">  
+            <input type="email" class="form__field" placeholder="Email" name="emailreceiver" id="emailreceiver" value="exemple@test.com"   maxlength="30">
+            <label for="email" class="form__label">Votre email</label>
+        </div>   
+        <div class="form__group field">  
+            <input type="password" name="pass" id="pass" placeholder="6 caractères" class="form__field" maxlength="10" >
+            <label for="pass" class="form__label">Mot de passe</label>
+        </div>
           <label for="filestatus">Récupérer votre fichier :</label>
           <progress id="filestatus" max="100" value="90"> 90% </progress>
-          <input type="submit" value="Télécharger" />
+          <input type="submit" value="Télécharger" id="btndownload" />
 
       </form>
 
