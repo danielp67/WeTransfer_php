@@ -8,7 +8,8 @@ function addFile($emailsender, $password, $emailreceiver, $zipName, $zipSize, $c
     $addFile = postFile($emailsender, $pass_hash, $emailreceiver, $zipName, $zipSize, $countfiles, $_POST['content']);
     $viewFile = fileSend($zipName);
     $sendMailToReceiver=sendMailToReceiver($emailsender, $password, $emailreceiver, $zipName);
-    $sendMailToSender=sendMailToSender($emailsender, $password, $emailreceiver, $zipName);
+    //$sendMailToSender=sendMailToSender($emailsender, $password, $emailreceiver, $zipName);
+    //header('Location: \index.php');
     require('C:\wamp64\www\TP09_wetransfer_php\view\uploadView.php');
 
 }

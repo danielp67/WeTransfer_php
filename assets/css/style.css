@@ -369,7 +369,7 @@ main{
    }
 
 
-   
+
 #btnupload{
     width: 90%;
     height: 50px;
@@ -397,6 +397,10 @@ main{
     bottom: 10px;
 }
 
+
+/*-------Input file custom-----------*/
+
+/*
 .inputfile{
     width: 0.1px;
 	height: 0.1px;
@@ -428,7 +432,7 @@ main{
     background-color: red;
 }
 
-
+*/
 
 
 

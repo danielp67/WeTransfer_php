@@ -7,6 +7,7 @@
     <div class="title">
         <h1>WeeZip 2.0 !</h1>
         <h2>Bienvenue sur le transfert de fichiers 2.0 !</h2>
+        <h3 class="message"></h3>
         <?=var_dump(bin2hex(random_bytes(5)));?>
     </div>
 
@@ -14,13 +15,13 @@
 if(!isset($viewFile)){
   ?>
     
-      <form method="POST" action="index.php?action=addFile" class="formupload" id="style-4" enctype="multipart/form-data">
+      <form method="POST" action="" class="formupload" id="style-4" enctype="multipart/form-data">
         <div class="scrollbar" id="style-4">
             <legend>Importer des fichiers :</legend>
             <div id="fileinput"></div>
             <br>
             <label for="filesend"><span id="filenumber"></span></label>
-            <input type="file" name="filesend[]"  files="no" id="filesend" class="inputfile" multiple />
+            <input type="file" name=""  files="no" id="filesend" class="inputfile" multiple />
             <br>
             <div class="form__group field">
             <input type="email" class="form__field" placeholder="Email" name="emailsender" id='emailsender' value="daniel@test.fr" required />
