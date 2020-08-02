@@ -10,8 +10,6 @@ try{
                
             }
         elseif ($_GET['action'] == 'addFile') {
-                var_dump($_POST);
-                var_dump($_FILES);
                     if(!empty($_POST['emailsender']) && !empty($_POST['pass']) && !empty($_POST['emailreceiver'])){
                         
                         $emailsender=htmlspecialchars($_POST['emailsender']);
@@ -24,7 +22,7 @@ try{
                         $date= time();
                         $name = bin2hex(random_bytes(5));
                         $path= "C:/wamp64/www/TP09_wetransfer_php/upload/";
-                        var_dump($_FILES);
+                        
 
                         for($i=0;$i<$countfiles;$i++){
                             $sizefiles += $_FILES['filesend']['size'][$i];
