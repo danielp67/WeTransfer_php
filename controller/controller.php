@@ -10,7 +10,7 @@ function addFile($emailsender, $password, $emailreceiver, $zipName, $zipSize, $c
     $sendMailToReceiver=sendMailToReceiver($emailsender, $password, $emailreceiver, $zipName);
     //$sendMailToSender=sendMailToSender($emailsender, $password, $emailreceiver, $zipName);
     //header('Location: \index.php');
-    require('C:\wamp64\www\TP09_wetransfer_php\view\uploadView.php');
+    //require('C:\wamp64\www\TP09_wetransfer_php\view\uploadView.php');
 
 }
 

@@ -2,17 +2,21 @@
   		
 
 <main>
+
+
+
     <div class="viewzone">
+
+    <?php
+  if(!isset($status)){
+    ?>
     <div class="title">
         <h1>WeeZip 2.0 !</h1>
         <h2>Bienvenue sur le transfert de fichiers 2.0 !</h2>
         <?=var_dump(bin2hex(random_bytes(5)));?>
     </div>
 
-<?php
-  if(!isset($status)){
-  
-?>
+
 
     <div class="formupload">
       <form method="post" action="index.php?action=downloadFile&amp;zip_name=<?php echo $getFile['zip_name']; ?>" class="form" enctype="multipart/form-data">

@@ -15,27 +15,27 @@
 if(!isset($viewFile)){
   ?>
     
-      <form method="POST" action="" class="formupload" id="style-4" enctype="multipart/form-data">
+      <form method="POST" action="" class="formupload" id="formupload" enctype="multipart/form-data">
         <div class="scrollbar" id="style-4">
-            <legend>Importer des fichiers :</legend>
+            
             <div id="fileinput"></div>
             <br>
-            <label for="filesend"><span id="filenumber"></span></label>
+            <label for="filesend" class="addfile"><div id="addfile">+</div><div id="filenumber"></div></label>
             <input type="file" name=""  files="no" id="filesend" class="inputfile" multiple />
             <br>
             <div class="form__group field">
             <input type="email" class="form__field" placeholder="Email" name="emailsender" id='emailsender' value="daniel@test.fr" required />
-            <label for="email" class="form__label">Votre email</label>
+            <label for="email" class="form__label">Votre email <span class="form__tips"> Email invalide !</span></label>
             </div>
 
             <div class="form__group field">  
             <input type="password" name="pass" id="pass" placeholder="6 caractères" class="form__field" maxlength="10" >
-            <label for="pass" class="form__label">Mot de passe</label>
+            <label for="pass" class="form__label">Mot de passe <span class="form__tips"> 6 caractères min. !</span></label>
             </div>
 
             <div class="form__group field">  
             <input type="email" class="form__field" placeholder="Email" name="emailreceiver" id="emailreceiver" value="exemple@test.com"   maxlength="30">
-            <label for="email" class="form__label">Email destinataire</label>
+            <label for="email" class="form__label">Email destinataire <span class="form__tips"> Email invalide !</span></label>
             </div>
             
             <div class="form__group field">  
@@ -51,8 +51,7 @@ if(!isset($viewFile)){
         <div class="btn">
             <hr>
             <label for="filestatus">Taille fichiers :</label>
-            <br>
-            <progress id="progress" value="0" max="2000000"   ></progress>
+            <progress id="progress" value="0" max="2000"   ></progress>
             <input type="submit" value="Transférer" id="btnupload" />
         </div>
       </form>
