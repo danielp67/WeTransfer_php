@@ -16,16 +16,19 @@ if(!isset($viewFile)){
   ?>
     
       <form method="POST" action="" class="formupload" id="formupload" enctype="multipart/form-data">
-        <div class="scrollbar" id="style-4">
+      <div id="margintop"></div>
+      <div class="scrollbar" id="style-4">
             
             <div id="fileinput"></div>
-            <br>
+            
+            <div class="form__group field">
             <label for="filesend" class="addfile"><div id="addfile">+</div><div id="filenumber"></div></label>
             <input type="file" name=""  files="no" id="filesend" class="inputfile" multiple />
-            <br>
+            </div>
+
             <div class="form__group field">
             <input type="email" class="form__field" placeholder="Email" name="emailsender" id='emailsender' value="daniel@test.fr" required />
-            <label for="email" class="form__label">Votre email <span class="form__tips"> Email invalide !</span></label>
+            <label for="email" class="form__label">Votre email <span class="form__tips"> Invalide !</span></label>
             </div>
 
             <div class="form__group field">  
@@ -35,7 +38,7 @@ if(!isset($viewFile)){
 
             <div class="form__group field">  
             <input type="email" class="form__field" placeholder="Email" name="emailreceiver" id="emailreceiver" value="exemple@test.com"   maxlength="30">
-            <label for="email" class="form__label">Email destinataire <span class="form__tips"> Email invalide !</span></label>
+            <label for="email" class="form__label">Email destinataire <span class="form__tips"> Invalide !</span></label>
             </div>
             
             <div class="form__group field">  
