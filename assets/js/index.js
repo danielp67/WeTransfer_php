@@ -101,14 +101,14 @@ merge_array(FILESinput,FILESdrop);
 
 
 
-
+let merge_arr =[];
 // Suppression doublon
 function merge_array(FILESinput, FILESdrop) {
   
 	
 	var arr = FILESinput.concat(FILESdrop);
 	let set = new Set(arr);
-	let merge_arr = Array.from(set);
+	merge_arr = Array.from(set);
 	console.log("merge");
 	console.log(merge_arr);
 
@@ -118,7 +118,7 @@ function merge_array(FILESinput, FILESdrop) {
 
 			if(merge_arr[i].name == merge_arr[n].name){
 				console.log("doublon");
-				merge_arr.splice(n, 1);;
+				merge_arr.splice(n, 1);
 				console.log(merge_arr);
 			}			
 		}
@@ -171,6 +171,7 @@ function createPreview(filePreview){
 	}
 	console.log(size);
 	console.log(filesInput[i]);
+	console.log(fileInput);
 }
 
 
@@ -199,8 +200,8 @@ form.addEventListener('submit', (e) => {
 
 //window.location.href = "index.php?action=addFile";
  fetch('index.php?action=addFile', {method: 'POST', body: formData})
- .then(res => messageSuccess() );
- 
+ .then(res => customAlert.alert("Votre fichier a été envoyé avec succès !", "BRAVO !") );
+
 	}
 	else{
 		alert('données manquantes');
@@ -278,18 +279,17 @@ check['pass'] = function() {
 };
 
 
-
-
-
 // Mise en place des événements
 
 function checkForm() { 
 
-		inputs = document.querySelectorAll('input[type=email], input[type=password]'),
-        inputsLength = inputs.length;
- console.log(inputs);
-    for (var i = 0; i < inputs.length; i++) {
+	let	inputs = document.querySelectorAll('input[type=email], input[type=password]');
+		console.log(inputs);
+    for (let i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener('change', function(e) {
+			//console.log(id);
+			console.log(e.target.id);
+			console.log(check);
             check[e.target.id](e.target.id); // "e.target" représente l'input actuellement modifié
         });
     }
@@ -299,28 +299,54 @@ function checkForm() {
 checkForm();
 
 
+function removeFiles() { 
+	console.log("testdelete");
+	console.log(FILESinput);
+	console.log(FILESdrop);
+	for (let i = 0; i < filesInput.length; i++) {
+		console.log('test bloc');
+		filesInput[i].addEventListener('mouseup', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			console.log('test condition');
+		console.log(filesInput[i]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-function messageSuccess(){
-	alert("Votre fichier a été envoyé avec succès !", "BRAVO !");
-	window.location.href = "index.php";
+		console.log(merge_arr[i].name);
+			console.log(merge_arr[i].name);
+		for(let n=0; n<FILESdrop.length; n++){
 	
+				if(merge_arr[i].name == FILESdrop[n].name){
+					console.log("file drop remove");
+					FILESdrop.splice(n, 1);
+					
+					merge_array(FILESinput, FILESdrop);
+					break;
+
+				}	
+			
+		}
+
+		for(let n=0; n<FILESinput.length; n++){
+	
+				if(merge_arr[i].name == FILESinput[n].name){
+					console.log("file input remove");
+					console.log(FILESinput);
+					FILESinput.splice(n, 1);
+					console.log(FILESinput);
+					
+					merge_array(FILESinput, FILESdrop);
+					break;
+
+				}	
+		
+		}
+		
+		});
+	}
 }
 
 
-
+fileInput.addEventListener('mousedown',removeFiles);
 
 
 let customAlert = new CustomAlert();
@@ -354,7 +380,9 @@ function CustomAlert(){
 	this.ok = function(){
 	  document.getElementById('dialogbox').style.display = "none";
 	  document.getElementById('dialogoverlay').style.display = "none";
+	  window.location.href = "index.php"
 	}
   }
   
   
+//droparea.addEventListener('click',customAlert.alert("Votre fichier a été envoyé avec succès !", "BRAVO !"));
