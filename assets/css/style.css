@@ -264,7 +264,7 @@ main{
 
 
 .fileinput{
-    background-color: rgb(43, 197, 151);
+    background-color: #4285F4;
     color: rgb(0, 0, 0);
     border-radius:5px ;
     -webkit-border-radius:5px ;
@@ -283,13 +283,13 @@ main{
 
 
 .fileinput:hover {
-    background-color: rgb(0, 250, 175);
+    background-color: #69a9f3;
     transition: 0.3s;
 }
 
 
 .fileinputcross{
-    color:  rgb(43, 197, 151);  
+    color:  #4285F4;  
     width: 25px;
     height: 25px;
     
@@ -362,29 +362,48 @@ main{
 #btnupload{
     width: 80%;
     height: 50px;
-    background-color: #fbbc05;
+    background-color: #4285F4;
     border-radius: 50px ;
     -webkit-border-radius: 50px ;
     -moz-border-radius: 50px ;
     -ms-border-radius: 50px ;
     -o-border-radius: 50px ;
-    border-color: #fbbc05;
+    border-color: #4285F4;
     margin-top: 10px;
     font-size: 30px;
     font-weight: 700;
     color :white;
+    -moz-box-shadow: 0px 0px 10px 5px rgb(180, 180, 180);
+    -webkit-box-shadow: 0px 0px 10px 5px rgb(180, 180, 180);
+    -o-box-shadow: 0px 0px 10px 5px rgb(180, 180, 180);
+    box-shadow: 0px 0px 10px 5px rgb(180, 180, 180);
+}
+
+#btnupload:hover{
+   
+  -moz-box-shadow: 0px 0px 5px 5px rgb(180, 180, 180);
+  -webkit-box-shadow: 0px 0px 5px 5px rgb(180, 180, 180);
+  -o-box-shadow: 0px 0px 5px 5px rgb(180, 180, 180);
+  box-shadow: 0px 0px 5px 5px rgb(180, 180, 180);
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  background-color: #69a9f3;
+
 }
 
 #btndownload{
     width: 90%;
     height: 50px;
-    background-color: #fbbc05	;
+    background-color: #4285F4	;
     border-radius: 15px ;
     -webkit-border-radius: 15px ;
     -moz-border-radius: 15px ;
     -ms-border-radius: 15px ;
     -o-border-radius: 15px ;
-    border-color: #fbbc05	;
+    border-color: #4285F4	;
     bottom: 10px;
 }
 
@@ -493,7 +512,7 @@ main{
     font-family: inherit;
     width: 100%;
     border: 0;
-    border-bottom: 2px solid #37dbb2;
+    border-bottom: 2px solid #4285F4;
     outline: 0;
     font-size: 1.3rem;
     color:  #4285F4;
@@ -516,14 +535,14 @@ main{
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: #37dbb2;
+    color: gray;
   }
   
   .form__field:focus {
     padding-bottom: 6px;
     font-weight: 700;
     border-width: 3px;
-    border-image: linear-gradient(to right, #11998e, #38ef7d);
+    border-image: linear-gradient(to right, #0400ff, #38a6ef);
     border-image-slice: 1;
   }
   .form__field:focus ~ .form__label {
@@ -532,7 +551,7 @@ main{
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: #11998e;
+    color: #4285F4;
     font-weight: 700;
   }
   
@@ -579,7 +598,7 @@ main{
 #style-4::-webkit-scrollbar-thumb
 {   
     
-    background-color: #D62929;
+    background-color: #4285F4;
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -588,72 +607,135 @@ main{
 	
 }
 
+/* The container */
+.radiocontent {
+  display: block;
+  position: relative;
+  padding-left: 45px;
+  padding-top: 7px;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
+/* Hide the browser's default radio button */
+.radiocontent input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
 
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee ;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-top: 5px; 
+}
 
-[type="radio"]:checked,
-[type="radio"]:not(:checked) {
-    position: absolute;
-    left: -9999px;
+/* On mouse-over, add a grey background color */
+.radiocontent:hover input ~ .checkmark {
+  background-color: darkgray;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+
+/* When the radio button is checked, add a blue background */
+.radiocontent input:checked ~ .checkmark {
+  background-color: #4285F4;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radiocontent input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radiocontent .checkmark:after {
+  top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+  background: white;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
 }
 
 
-[type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label
-{
-    position: relative;
-    padding-left: 28px;
-    cursor: pointer;
-    line-height: 20px;
-    display: inline-block;
-    color: #666;
+
+
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+   appearance: none;
+  margin-top: 10px;
+  width: 150px;
+  height: 10px;
+}
+progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+
 }
 
-
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 18px;
-    height: 18px;
-    border: 1px solid #ddd;
-    border-radius: 100%;
-    background: #fff;
+progress[value]::-webkit-progress-value {
+  background-image: linear-gradient(to right, #4285F4 , #0061fd);
+	 /*  -webkit-linear-gradient(-45deg, 
+	                           transparent 33%, rgba(0, 0, 0, .1) 33%, 
+	                           rgba(0,0, 0, .1) 66%, transparent 66%),
+	   -webkit-linear-gradient(top, 
+	                           rgba(255, 255, 255, .25), 
+	                           rgba(0, 0, 0, .25)),
+     -webkit-linear-gradient(left, #09c, #f44);
+     background-size: 35px 20px, 100% 100%, 100% 100%;
+*/
+    border-radius: 2px; 
+    
 }
 
+progress[value]::-webkit-progress-value .size75{
+  background-image: linear-gradient(to right, #4285F4 , #f4b642);
 
-[type="radio"]:checked + label:after,
-[type="radio"]:not(:checked) + label:after {
-    content: '';
-    width: 12px;
-    height: 12px;
-    background: #F87DA9;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    border-radius: 100%;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
+    border-radius: 2px; 
+    
 }
+progress[value]::-webkit-progress-value .size100{
+  background-image: linear-gradient(to right, #4285F4 , #f44242);
 
-[type="radio"]:not(:checked) + label:after {
-    opacity: 0;
-    -webkit-transform: scale(0);
-    transform: scale(0);
+    border-radius: 2px; 
+    
 }
-
-[type="radio"]:checked + label:after {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
-
-
-
-
-
 
 
 /* ---------------Animation---------------- */
@@ -751,8 +833,8 @@ main{
   text-align: center;
   text-overflow: ellipsis;
   text-transform: uppercase;
-  color: rgb(0, 77, 70);
-  border : 2px solid rgb(0, 77, 70);
+  color: #4285F4;
+  border : 2px solid #4285F4;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
@@ -853,14 +935,14 @@ main{
   background: rgb(255, 255, 255); 
   font-size:19px; 
   padding:10px; 
-  color:rgb(0, 77, 70); 
+  color:#4285F4;
   font-family: Verdana, Geneva, Tahoma, sans-serif ;
 }
 
 #dialogbox > div > #dialogboxbody{ 
   background:rgb(255, 255, 255); 
   padding:20px; 
-  color:rgb(0, 77, 70); 
+  color:#4285F4;
   font-family: Verdana, Geneva, Tahoma, sans-serif ;
 }
 
@@ -870,3 +952,6 @@ main{
   text-align:right; 
 }
 /*#endregion Alert*/
+
+
+

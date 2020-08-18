@@ -22,8 +22,9 @@ if(!isset($viewFile)){
             <div id="fileinput"></div>
             
             <div class="form__group field">
-            <label for="filesend" class="addfile"><div id="addfile">+</div><div id="filenumber"></div></label>
-            <input type="file" name=""  files="no" id="filesend" class="inputfile" multiple />
+            
+            <label for="filesend" class="addfile"><div id="addfile">+</div><div id="filenumber"></div><br><span id=filedelete class="form__tips" style="margin-left:50px;">Supprimer des fichiers !</span></label>
+            <input type="file" name=""  files="no" id="filesend" class="inputfile" multiple >
             </div>
 
             <div class="form__group field">
@@ -46,14 +47,20 @@ if(!isset($viewFile)){
             <input type="text" name="content" id="content" placeholder="ton texte" class="form__field"  maxlength="255">
             <label for="content" class="form__label">Message</label>    
             </div>
-            <label for="emailtransfer"><input type="radio" name="transfertype" value="yes" id="emailtransfer"  class="radio" checked/>Envoyer un transfert par email</label>
-            <br>
-            <label for="linktransfer"><input type="radio" name="transfertype" value="no" id="linktransfer" class="radio" />Obtenir un lien de transfert</label>
-            <br>
+            
+            <label for="emailtransfer" class="radiocontent"><input type="radio" name="transfertype" value="yes" id="emailtransfer"  class="radio" checked/>Envoyer un transfert par email
+            <span class="checkmark"></span>
+            </label>
+            
+            <label for="linktransfer" class="radiocontent"><input type="radio" name="transfertype" value="no" id="linktransfer" class="radio" />Obtenir un lien de transfert
+            <span class="checkmark"></span>
+            </label>
+            
+            
         </div>
         <div class="btn">
             <hr>
-            <label for="filestatus">Taille fichiers :</label>
+            <label for="filestatus" id="filesizetext">Taille fichiers :</label>
             <progress id="progress" value="0" max="2000"   ></progress>
             <input type="submit" value="Transférer" id="btnupload" />
         </div>

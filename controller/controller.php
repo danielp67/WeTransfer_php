@@ -67,7 +67,7 @@ function finaleView($checkFile,$zipName){
 
 
 function deleteFile($zipName){
-    $deleteFile=fileDelete($zipName);
+    $deleteFile=filesDelete($zipName);
     $status=true;
     $delete=true;
     require('C:\wamp64\www\TP09_wetransfer_php\view\downloadView.php');
