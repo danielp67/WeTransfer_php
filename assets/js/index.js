@@ -60,8 +60,9 @@ const form = document.querySelector('form');
 let fileInput = document.querySelector("#fileinput");
 let fileNb = document.querySelector("#filenumber");
 fileNb.innerHTML= 'Importer des fichiers';
-
-
+let filedelete =  document.querySelector("#filedelete");
+let filesizetext = document.querySelector("#filesizetext");
+	console.log(filesizetext);
 // Rajout fichier drop
 let FILESdrop =[];
 droparea.addEventListener('drop', function(e) {
@@ -102,7 +103,7 @@ merge_array(FILESinput,FILESdrop);
 
 
 let merge_arr =[];
-// Suppression doublon
+// Suppression doublon et vérification limite taille totale et extensions
 function merge_array(FILESinput, FILESdrop) {
   
 	
@@ -123,6 +124,38 @@ function merge_array(FILESinput, FILESdrop) {
 			}			
 		}
 	}
+
+	for(let i=0; i<merge_arr.length ; i++){
+		if (merge_arr[i].type == ''){
+			console.log("fichier nok");
+			merge_arr.splice(i, 1);
+			i--;
+		}
+		
+	}
+	
+	
+	let size =0;
+	for(let i=0; i<merge_arr.length ; i++){
+		size += Math.round(parseInt(merge_arr[i].size)/1000);
+		console.log(size);
+	}
+
+	
+		if (size >= 2000) {
+			
+			filedelete.style.display = 'inline-block';
+		  
+		} 
+		else {
+			
+			filedelete.style.display = 'none';
+		  
+		} 
+	
+	
+
+
 	createPreview(merge_arr);
 	fileNb.innerHTML= merge_arr.length + ' fichier(s)';
   return merge_arr;
@@ -164,10 +197,20 @@ function createPreview(filePreview){
 	cross[i].classList.add("fileinputcross");
 	filesInput[i].appendChild(cross[i]);
 	cross[i].innerHTML ='X';
-}
+	}
+
 	progress.value = size;
+	filesizetext.innerHTML = 'Taille : '+ size + ' Ko ';
+	if(size>1500){
+		console.log("overlimit");
+	}
+	
 	if(size>2000){
 		console.log("overlimit");
+	}
+
+	else{
+
 	}
 	console.log(size);
 	console.log(filesInput[i]);
