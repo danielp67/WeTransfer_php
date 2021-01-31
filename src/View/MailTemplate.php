@@ -1,5 +1,12 @@
 <?php 
 
+namespace App\View;
+
+class MailTemplate
+{
+
+
+
 function getTemplate($text){
 
 return $template = '
@@ -48,7 +55,8 @@ return $template = '
 .btnupload a{
     text-decoration: none;
     color: white;
-}
+ 
+ }
 
 
 main{
@@ -65,9 +73,8 @@ main{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-  background: url(\'localhost/TP09_wetransfer_php/assets/img/dropzone.png\') no-repeat center center;  
-  background-color : lightgray;
-  height: 100vh;
+    background-color : linear-gradient(90deg, rgba(171,171,181,1) 0%, rgba(255,255,255,1) 100%);
+    height: 100vh;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -113,10 +120,12 @@ main{
     -ms-border-radius: 50px ;
     -o-border-radius: 50px ;
     border-color: #4285F4;
-    margin-top: 10px;
     font-size: 30px;
     font-weight: 700;
     color :white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     -moz-box-shadow: 0px 0px 10px 5px rgb(180, 180, 180);
     -webkit-box-shadow: 0px 0px 10px 5px rgb(180, 180, 180);
     -o-box-shadow: 0px 0px 10px 5px rgb(180, 180, 180);
@@ -145,5 +154,5 @@ main{
 
 ';
 
-
+}
 }

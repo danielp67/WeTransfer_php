@@ -35,13 +35,13 @@ droparea.addEventListener('dragover', function(e) {
 	droparea.classList.add('opacity');
 	e.preventDefault();
     e.stopPropagation();
-	console.log("dragenter");
+	//console.log("dragenter");
   });
   
 
 droparea.addEventListener("dragleave", function(e) {
 	droparea.classList.remove('opacity');
-	console.log("dragleave");
+	//console.log("dragleave");
   });
 
 
@@ -62,26 +62,19 @@ let fileNb = document.querySelector("#filenumber");
 fileNb.innerHTML= 'Importer des fichiers';
 let filedelete =  document.querySelector("#filedelete");
 let filesizetext = document.querySelector("#filesizetext");
-	console.log(filesizetext);
 // Rajout fichier drop
 let FILESdrop =[];
 droparea.addEventListener('drop', function(e) {
     e.preventDefault();
 	droparea.classList.remove('opacity');
-	console.log('Vous avez bien déposé votre élément !');
-	
+
 	let files = [...e.dataTransfer.files];
-	
-	console.log("e.dataTransfer.files");
-	console.log(e.dataTransfer.files);
 
 	  for(let i=0; i< files.length; i++){
 
 		FILESdrop.push(files[i]);
 		
 	}
-	
-	console.log(FILESdrop);
 
 merge_array(FILESinput,FILESdrop);
 
@@ -95,8 +88,7 @@ let FILESinput =[];
 filesend.addEventListener('change', function() {
 	FILESinput=[...filesend.files];
 
-console.log("test");
-console.log(FILESinput);
+
 merge_array(FILESinput,FILESdrop);
 });
 
@@ -110,51 +102,38 @@ function merge_array(FILESinput, FILESdrop) {
 	var arr = FILESinput.concat(FILESdrop);
 	let set = new Set(arr);
 	merge_arr = Array.from(set);
-	console.log("merge");
-	console.log(merge_arr);
+
 
 	for(let i=0; i<merge_arr.length-1 ; i++){
-		console.log("text");
 		for(let n=i+1; n<merge_arr.length; n++){
 
 			if(merge_arr[i].name == merge_arr[n].name){
-				console.log("doublon");
 				merge_arr.splice(n, 1);
-				console.log(merge_arr);
-			}			
+			}
 		}
 	}
 
 	for(let i=0; i<merge_arr.length ; i++){
 		if (merge_arr[i].type == ''){
-			console.log("fichier nok");
 			merge_arr.splice(i, 1);
 			i--;
 		}
 		
 	}
 	
-	
 	let size =0;
 	for(let i=0; i<merge_arr.length ; i++){
 		size += Math.round(parseInt(merge_arr[i].size)/1000);
-		console.log(size);
 	}
 
-	
 		if (size >= 2000) {
 			
 			filedelete.style.display = 'inline-block';
-		  
 		} 
 		else {
 			
 			filedelete.style.display = 'none';
-		  
-		} 
-	
-	
-
+		}
 
 	createPreview(merge_arr);
 	fileNb.innerHTML= merge_arr.length + ' fichier(s)';
@@ -233,7 +212,6 @@ form.addEventListener('submit', (e) => {
 	if (formResult) {
 		alert('Le formulaire est bien rempli.');
 		formData = new FormData(form);
-		console.log(formData);
 		let filesTransfer= merge_array(FILESinput,FILESdrop);
 
 	for (let a=0; a <filesTransfer.length ;a++){
@@ -327,12 +305,9 @@ check['pass'] = function() {
 function checkForm() { 
 
 	let	inputs = document.querySelectorAll('input[type=email], input[type=password]');
-		console.log(inputs);
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener('change', function(e) {
-			//console.log(id);
-			console.log(e.target.id);
-			console.log(check);
+
             check[e.target.id](e.target.id); // "e.target" représente l'input actuellement modifié
         });
     }
@@ -343,23 +318,15 @@ checkForm();
 
 
 function removeFiles() { 
-	console.log("testdelete");
-	console.log(FILESinput);
-	console.log(FILESdrop);
+
 	for (let i = 0; i < filesInput.length; i++) {
-		console.log('test bloc');
 		filesInput[i].addEventListener('mouseup', function(e) {
 			e.stopPropagation();
 			e.preventDefault();
-			console.log('test condition');
-		console.log(filesInput[i]);
 
-		console.log(merge_arr[i].name);
-			console.log(merge_arr[i].name);
 		for(let n=0; n<FILESdrop.length; n++){
 	
 				if(merge_arr[i].name == FILESdrop[n].name){
-					console.log("file drop remove");
 					FILESdrop.splice(n, 1);
 					
 					merge_array(FILESinput, FILESdrop);
@@ -372,11 +339,9 @@ function removeFiles() {
 		for(let n=0; n<FILESinput.length; n++){
 	
 				if(merge_arr[i].name == FILESinput[n].name){
-					console.log("file input remove");
-					console.log(FILESinput);
+
 					FILESinput.splice(n, 1);
-					console.log(FILESinput);
-					
+
 					merge_array(FILESinput, FILESdrop);
 					break;
 
