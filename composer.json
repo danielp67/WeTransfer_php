@@ -1,5 +1,22 @@
 {
+    "license": "proprietary",
+    "name": "daniel/weezip_php",
+    "description": "weezip",
+    "authors": [
+        {
+            "name": "danielp67",
+            "email": "test@test.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+
     "require": {
-        "swiftmailer/swiftmailer": "^6.0"
+        "swiftmailer/swiftmailer": "^6.0",
+      "ext-pdo": "*",
+      "ext-zip": "*"
     }
 }
